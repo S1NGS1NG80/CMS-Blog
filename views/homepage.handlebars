@@ -1,15 +1,7 @@
-{{#if logged_in}}
-    <p>Welcome back, {{username}}!</p>
-    <a href="/logout">Logout</a>
-{{else}}
-    <a href="/login">Login</a>
-    <a href="/signup">Signup</a>
-{{/if}}
+<article class="post">
 
-{{#each posts}}
-    <div class="post">
-        <h2>{{this.title}}</h2>
-        <p>{{this.content}}</p>
-        <p>Posted by {{this.user.username}}</p>
-    </div>
-{{/each}}
+    {{#each posts as |post| }}
+        {{> postInfo post}}
+    {{/each}}
+
+</article>
