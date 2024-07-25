@@ -1,3 +1,4 @@
+// Signup submission
 async function signupFormHandler(event) {
     event.preventDefault();
 

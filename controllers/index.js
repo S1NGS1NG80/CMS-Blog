@@ -12,6 +12,7 @@ router.use('/', homeRoutes);
 
 router.use('/dashboard', dashboardRoutes);
 
+// Handles any unmatched routes and returns a 404 status code
 router.use((req, res) => {
 
     res.status(404).end();

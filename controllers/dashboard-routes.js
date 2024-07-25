@@ -2,6 +2,7 @@ const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
+// Attempts to retrieve and render all posts created by the current user
 router.get('/', withAuth, async (req, res) => {
 try{
     const dashboard = await Post.findAll({
@@ -38,7 +39,7 @@ try{
             res.status(500).json(err);
         };
 });
-
+// route for editing a post
 router.get('/edit/:id', withAuth, async (req, res) => {
     try{
     const editPost = await Post.findOne({
@@ -79,6 +80,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
             res.status(500).json(err);
         };
 })
+// handle new post route
 router.get('/new', (req, res) => {
     res.render('new-post');
 });

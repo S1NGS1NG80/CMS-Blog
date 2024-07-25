@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+// Gets all comments
 router.get('/', async (req, res) => {
 try{
    const findComments =  await Comment.findAll({})
@@ -13,7 +14,7 @@ try{
             res.status(500).json(err);
         }
 });
-
+// Express.js router that handles HTTP GET requests to retrieve comments by ID
 router.get('/:id', async (req, res) => {
 try{
     const findCommentByID = await Comment.findAll({
@@ -31,6 +32,7 @@ try{
         }
 });
 
+// Handles HTTP POST requests to create a new comment
 router.post('/', withAuth, async (req, res) => {
     if (req.session) {
       try{  
@@ -50,6 +52,7 @@ router.post('/', withAuth, async (req, res) => {
     }
 });
 
+// Handles HTTP PUT requests to update an existing comment
 router.put('/:id', withAuth, async (req, res) => {
 try{
     const updateComment = await Comment.update({
@@ -73,6 +76,7 @@ try{
     };
 });
 
+// Handles HTTP DELETE requests to delete a comment by ID
 router.delete('/:id', withAuth, async (req, res) => {
 try{
     const deleteComment = await Comment.destroy({
