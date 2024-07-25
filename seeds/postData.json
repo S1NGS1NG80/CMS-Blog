@@ -1,17 +1,44 @@
 [
-	{
-		"title": "How to Build a REST API",
-		"body": "In this tutorial, we will walk through how to build a REST API using Node.js and Express.",
-		"username": "Ashley"
-	},
-	{
-		"title": "Introduction to React",
-		"body": "In this post, we will introduce the basics of React and explain how it can be used to build modern web applications.",
-		"username": "John"
-	},
-	{
-		"title": "10 Tips for Writing Clean Code",
-		"body": "Writing clean code is important for maintaining large codebases and collaborating with other developers. In this post, we will provide 10 tips for writing clean code.",
-		"username": "Ashley"
-	}
+    {
+        "title": "Why MVC is so important",
+        "content": "MVC allows developers to maintain a true separation of concerns, devising their own code between the Model layer for data, the View layer for design, and the Controller layer for application logic.",
+        "category_id": 1,
+        "user_id": 1,
+        "createdAt": "November 1, 2023 07:00:00"
+    },
+    {
+        "title": "Programming Resources",
+        "content": "W3schools.com is an excellent resource for getting acquinted with a programming language. They also provide a certification program to highlight on your portfolio.",
+        "category_id": 2,
+        "user_id": 1,
+        "createdAt": "November 2, 2023 07:00:00"
+    },
+    {
+        "title": "Object-Relational Mapping",
+        "content": "I have really loved learning about ORMs. It's really simplified the way I create queries in SQL!",
+        "category_id": 1,
+        "user_id": 2,
+        "createdAt": "November 3, 2023 07:00:00"
+    },
+    {
+        "title": "Most popular technologies",
+        "content": "Here is a link to the most popular technologies from StackOveflow in 2023. In May 2023 over 90,000 developers responsed to their annual survey about how they learn and level up, which tools they're using and which ones they want. It might be a long read, but totally worth it for their great insights into the industry trends of software development. 'https://survey.stackoverflow.co/2023/#technology-most-popular-technologies'",
+        "category_id": 6,
+        "user_id": 2,
+        "createdAt": "November 4, 2023 07:00:00"
+    },
+    {
+        "title": "Authentication vs. Authorization",
+        "content": "There is a difference between authentication and authorization. Authentication means confirming your own identity, whereas authorization means being allowed access to the system.",
+        "category_id": 3,
+        "user_id": 3,
+        "createdAt": "November 5, 2023 07:00:00"
+    },
+    {
+        "title": "ChatGPT and GitHub CoPilot",
+        "content": "ChatGPT and GitHub CoPilot are by far the most indespensible tools for a programmer, they are your most trusty side-kick. They shorten development time significantly by providing examples that you can use and build upon.",
+        "category_id": 5,
+        "user_id": 3,
+        "createdAt": "November 6, 2023 07:00:00"
+    }
 ]

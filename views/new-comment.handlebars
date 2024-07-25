@@ -1,0 +1,37 @@
+<section>
+    <div class="container mt-5">
+        <div class="row align-items-stretch justify-content-between">
+
+            <!-- New Comment -->
+            <div class="col-12 mb-3 flex-grow-1">
+                <div class="card h-100 border-dark">
+                    <h4 class="card-header">New Comment</h4>
+                    <div class="card-body">
+                        <form class="edit-post-form">
+                            {{!-- Post ID  --}}
+                            <div class="mb-3">
+                                <label for="post-id" class="form-label">Post ID</label>
+                                <input type="text" class="form-control" id="post-id" value="{{id}}" disabled readonly>
+                            </div>
+                            {{!-- Post Title  --}}
+                            <div class="mb-3">
+                                <label for="post-title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="post-title" value="{{title}}" disabled readonly>
+                            </div>
+                            {{!-- Content --}}
+                            <div class="mb-3">
+                                <label for="comment-content" class="form-label">Comment</label>
+                                <input type="text" class="form-control" id="comment-content">
+                            </div>
+                            <button type="submit" class="col-12 btn btn-outline-primary mb-2 mt-2 comment-submit">Submit</button>
+                            <button type="submit" class="col-12 btn btn-outline-secondary mb-2 mt-2 comment-cancel">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+<script src="/js/new-comment.js"></script>

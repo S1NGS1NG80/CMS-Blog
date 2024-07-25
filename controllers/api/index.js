@@ -1,12 +1,18 @@
 const router = require('express').Router();
-const userRoutes = require('./userRoutes');
-const postRoutes = require('./postRoutes');
-const commentRoutes = require('./commentRoutes');
+require('dotenv').config();
 
-router.use('/user', userRoutes);
+const userRoutes = require('./user-routes');
+const postRoutes = require('./post-routes');
+const commentRoutes = require('./comment-routes');
 
-router.use('/post', postRoutes);
+router.use('/users', userRoutes);
+router.use('/posts', postRoutes);
+router.use('/comments', commentRoutes);
 
-router.use('/comment', commentRoutes);
+// For Development API calls
+if(process.env.NODE_ENV === 'dev'){
+    const devRoutes = require('./dev');
+    router.use('/dev', devRoutes);
+}
 
 module.exports = router;

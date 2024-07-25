@@ -1,0 +1,41 @@
+<section>
+    <div class="container mt-5">
+        <div class="row align-items-stretch justify-content-between">
+
+            <!-- New Post -->
+            <div class="col-12 mb-3 flex-grow-1">
+                <div class="card h-100 border-dark">
+                    <h4 class="card-header">New Post</h4>
+                    <div class="card-body">
+                        <form class="edit-post-form">
+                            {{!-- Title --}}
+                            <div class="mb-3">
+                                <label for="post-title" class="form-label">Title</label>
+                                <input type="text" class="form-control" id="post-title" value="{{title}}">
+                            </div>
+                            {{!-- Content --}}
+                            <div class="mb-3">
+                                <label for="post-content" class="form-label">Content</label>
+                                <textarea class="form-control" id="post-content" rows="10">{{content}}</textarea>
+                            </div>
+                            {{!-- Category --}}
+                            <div class="mb-4">
+                                <label for="post-category" class="form-label">Category</label>
+                                <select class="form-select" id="post-category" aria-label="Default select example">
+                                    {{#each categories}}
+                                    <option value="{{id}}">{{title}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <button type="submit" class="col-12 btn btn-outline-primary mb-2 mt-2 post-create">Create Post</button>
+                            <button type="submit" class="col-12 btn btn-outline-secondary mb-2 mt-2 post-cancel">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+<script src="/js/new-post.js"></script>
