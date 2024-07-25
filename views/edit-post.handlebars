@@ -1,51 +1,15 @@
-<section>
-    <div class="container mt-5">
-        <!-- Login/Sign-up Cards Container  -->
-        <div class="row align-items-stretch justify-content-between">
-
-            <!-- Login Card -->
-            <div class="col-12 mb-3 flex-grow-1">
-                <div class="card h-100 border-dark">
-                    <h4 class="card-header">Edit Post</h4>
-                    <div class="card-body">
-                        <form class="edit-post-form">
-                            {{!-- ID --}}
-                            <div class="mb-3">
-                                <label for="post-id" class="form-label">Post ID</label>
-                                <input type="text" class="form-control" id="post-id" value="{{id}}" disabled readonly>
-                            </div>
-                            {{!-- Title --}}
-                            <div class="mb-3">
-                                <label for="post-title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="post-title" value="{{title}}">
-                            </div>
-                            {{!-- Content --}}
-                            <div class="mb-3">
-                                <label for="post-content" class="form-label">Content</label>
-                                <textarea class="form-control" id="post-content" rows="7">{{content}}</textarea>
-                            </div>
-                            {{!-- Category --}}
-                            <div class="mb-4">
-                                <label for="post-category" class="form-label">Category</label>
-                                <select class="form-select" id="post-category"aria-label="Default select example">
-                                    <option value="{{category.id}}"selected>{{category.title}}</option>
-                                    {{#each categories}}
-                                    <option value="{{id}}">{{title}}</option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                            <button type="submit" class="col-12 mb-2 btn btn-outline-primary post-cancel">Cancel</button>
-                            <button type="submit" class="col-12 mb-2 btn btn-outline-warning post-update">Update Post</button>
-                            <button type="submit" class="col-12 mb-2 btn btn-outline-danger post-delete">Delete Post</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="card">
+    <h3 class="card-header">Edit Post</h3>
+    <form class="card-body edit-post-form">
+        <label for="post-title" class="form-label">Title</label>
+        <input name="post-title" type="text" value="{{post.title}}" class="form-input" />
+        <label class="form-label" for="content">Content</label>
+        <input name="content" type="text" value="{{post.content}}" class="form-input" />
+        <button type="submit" class="btn">Update Post</button>
+        <button type="button" class="delete-post-btn btn">Delete Post</button>
+    </form>
+</div>
 
 
-        </div>
-</section>
-
-
-
-<script src="/js/edit-post.js"></script>
+<script src="/javascript/edit-post.js"></script>
+<script src="/javascript/delete-post.js"></script>

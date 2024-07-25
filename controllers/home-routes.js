@@ -1,99 +1,133 @@
+const sequelize = require('../config/connection');
+const { Post, User, Comment } = require('../models');
 const router = require('express').Router();
-const { User, Category, Post, Comment } = require('../models');
-const { withAuth } = require('../utils/auth');
-
-
+//the get request for the main page.
 router.get('/', async (req, res) => {
-    try {
-        // Get all RECORDS and JOIN with other data
-        const data = await Post.findAll({
-            attributes: ['id', 'title', 'content', 'createdAt', 'updatedAt'],
-            include: [
-                { model: User, attributes: ['name'] },
-                { model: Category, attributes: ['title'] },
-                { model: Comment, attributes: ['content'], include: { model: User, attributes: ['name', 'createdAt'] } }
-            ],
-        });
-
-        // Serialize data so the template can read it
-        const posts = data.map((post) => post.get({ plain: true }));
-
-        // Pass serialized data and session flag into template
-        res.render('homepage', { posts, logged_in: req.session.logged_in });
-
-    } catch (err) {
-        res.status(500).json(err);
+try{
+    const findPosts = await Post.findAll({
+            attributes: [
+                'id',
+                'title',
+                'content',
+                'created_at'
+            ], //gets all variables stored in the db
+            include: [{
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'], //includes the comments that are stored on posts
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username'] //gets the username attached to a post
+                }
+            ]
+        })
+            const posts = findPosts.map(post => post.get({ plain: true }));
+            res.render('homepage', { posts, loggedIn: req.session.loggedIn }); //after the above, we map over the array of posts and render out the homepage located in views.
     }
+        catch(err) {
+            console.log(err);
+            res.status(500).json(err);
+        };
 });
-
-
-// Render the Post Page
-router.get('/post/:id', async (req, res) => {
-    // Find record by ID and include other model data
-    try {
-        const data = await Post.findByPk(req.params.id, {
-            attributes: ['id', 'title', 'content', 'createdAt', 'updatedAt'],
-            include: [
-                { model: User, attributes: ['name'] },
-                { model: Category, attributes: ['title'] },
-                { model: Comment, attributes: ['content'], include: { model: User, attributes: ['name', 'createdAt'] } }
-            ],
-        });
-        // Return an error if record not found
-        if (!data) {
-            res.status(404).json({ message: 'Record ' + req.params.id + ' not found.' });
-            return;
-        }
-
-        // Serialize data so the template can read it
-        const post = data.get({ plain: true });
-
-        // Pass serialized data and session flag into template
-        res.render('post-page', { ...post, comments: post.comments, logged_in: req.session.logged_in });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
-
-
-// Render the new-comment form
-router.get('/new-comment/post/:id', withAuth, async (req, res) => {
-    // Find record by ID and include other model data
-    try {
-        const data = await Post.findByPk(req.params.id, {
-            attributes: ['id', 'title'],
-        });
-        // Return an error if record not found
-        if (!data) {
-            res.status(404).json({ message: 'Record ' + req.params.id + ' not found.' });
-            return;
-        }
-
-        // Serialize data so the template can read it
-        const post = data.get({ plain: true });
-
-        // Pass serialized data and session flag into template
-        res.render('new-comment', { ...post, logged_in: req.session.logged_in });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-});
-
 
 router.get('/login', (req, res) => {
-    // If the user is already logged in, redirect the request to another route
-    if (req.session.logged_in) {
-        res.redirect('/dashboard');
-        return;
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return; //if person is logged in, redirect to home page.
     }
-
-    res.render('login');
+    res.render('login'); //if not, render the login page.
 });
 
+router.get('/signup', (req, res) => {
+    res.render('signup');
+}); //If you click the signup link it takes you to the handlebars signup page!
+
+router.get('/post/:id', async (req, res) => {
+try{
+    const postbyID = await Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: [
+                'id',
+                'content',
+                'title',
+                'created_at'
+            ],
+            include: [{
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ]
+        })
+        const singlepost = await postbyID
+            if (!singlepost) {
+                res.status(404).json({ message: 'No post found with this id' });
+                return;
+            }
+            const post = singlepost.get({ plain: true });
+            console.log(post);
+            res.render('single-post', { post, loggedIn: req.session.loggedIn }); //This is similar to how the homepage works, except if we click on a post it instead renders the individual post!
 
 
+        }
+        catch(err) {
+            console.log(err);
+            res.status(500).json(err);
+        };
+});
 
+router.get('/posts-comments', async (req, res) => {
+try{
+    const findComment = await Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: [
+                'id',
+                'content',
+                'title',
+                'created_at'
+            ],
+            include: [{
+                    model: Comment,
+                    attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                    include: {
+                        model: User,
+                        attributes: ['username']
+                    }
+                },
+                {
+                    model: User,
+                    attributes: ['username']
+                }
+            ]
+        })
+        const findnewComment = await findComment
+            if (!findnewComment) {
+                res.status(404).json({ message: 'No post found with this id' });
+                return;
+            }
+            const post = findnewComment.get({ plain: true });
 
+            res.render('posts-comments', { post, loggedIn: req.session.loggedIn });
+        }
+        catch(err) {
+            console.log(err);
+            res.status(500).json(err);
+        };
+});
 
 module.exports = router;

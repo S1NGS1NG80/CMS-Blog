@@ -1,59 +1,15 @@
-<section>
-    <div class="container mt-5">
-        <!-- Login/Sign-up Cards Container  -->
-        <div class="row align-items-stretch justify-content-between">
+    <div class="card">
+      <h3 class="card-header">Login</h3>
+      <form id="login-form" class="card-body">
+        <label class="form-label" for="username-login">Username</label>
+        <input  id="username-login" type="text" autofocus="true" class="form-input" />
 
-            <!-- Login Card -->
-            <div class="col-12 col-lg-2 mb-3 flex-grow-1 forecast-card">
-                <div class="card h-100 border-dark">
-                    <h4 class="card-header">Login</h4>
-                    <div class="card-body">
-                        <form class="login-form">
-                            <div class="mb-3">
-                                <label for="email-login" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email-login">
-                            </div>
-                            <div class="mb-4">
-                                <label for="password-login" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password-login">
-                            </div>
-                            <button type="submit" class="col-12 btn btn-outline-primary mb-2">Login</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <label class="form-label" for="password-login">Password</label>
+        <input id="password-login" type="password" autofocus="true" class="form-input" />
 
-            <!-- Sign-up Card -->
-            <div class="col-12 col-lg-2 mb-3 flex-grow-1 forecast-card">
-                <div class="card h-100 border-dark">
-                    <h4 class="card-header">Sign-up</h4>
-                    <div class="card-body">
-                        <form class="signup-form">
-                            <div class="mb-3">
-                                <label for="name-signup" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="name-signup">
-                            </div>
-                            <div class="mb-3">
-                                <label for="email-signup" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email-signup"
-                                    aria-describedby="email-help">
-                                <div id="email-help" class="form-text">We'll never share your email with anyone else.
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label for="password-signup" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password-signup">
-                            </div>
-                            <button type="submit" class="col-12 mb-2 btn btn-outline-primary">Sign-up and Login</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-</section>
-
-
-
-<script src="./js/login.js"></script>
+        <button type="submit" class="btn">Click here to login</button>
+        <a class="login-link" href="/signup">Sign Up Here</a>
+      </form>
+    </div>
+    
+<script src="/javascript/login.js"></script>
