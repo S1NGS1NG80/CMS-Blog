@@ -31,6 +31,20 @@
     </main>
   </div>
 
+     {{#if dashboard}}
+      <footer class='footer flex-row justify-center'>
+        <a href='/dashboard/new'>+ New Post</a>
+      </footer>
+    {{else}}
+      <footer class='flex-row justify-center'>
+        &copy; The Tech Blog Folks
+      </footer>
+    {{/if}}
+
+    {{#if loggedIn}}
+      <script src='/js/logout.js'></script>
+    {{/if}}
+
     {{#if loggedIn}}
     <script src="/js/logout.js"></script>
     {{/if}}
