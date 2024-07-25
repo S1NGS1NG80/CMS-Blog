@@ -1,5 +1,3 @@
-{{! define basic structure of blog app pages: }}
-
 <html lang='en'>
 
 	<head>
@@ -13,8 +11,10 @@
 
 		<nav>
 			<ul>
+				{{! link to homepage }}
 				<li class='li-inline nav-item'><a href='/'>Home</a></li>
 				{{#if logged_in}}
+					{{! if user is logged in, links to the dashboard & logout will show }}
 					<li class='li-inline nav-item'><a href='/dashboard'>Dashboard</a></li>
 					<li class='li-inline nav-item'><a
 							href='#'
@@ -22,6 +22,7 @@
 							id='logout'
 						>Logout</a></li>
 				{{else}}
+					{{! if user not logged in, login + login link will show }}
 					<li class='li-inline nav-item'><a href='/login'>Login</a></li>
 				{{/if}}
 			</ul>
@@ -29,15 +30,16 @@
 
 		<header class='display-flex justify-space-between align-center p-2'>
 			<h1>
-				<a href='/'>Tech Blog</a>
+				Techno Blog
 			</h1>
 		</header>
 
 		<main>
 			{{{body}}}
 		</main>
+
 		<footer>
-			&copy; Tech Blog 2024
+			<a href='/dashboard/new'>Create New Post</a>
 		</footer>
 
 	</body>

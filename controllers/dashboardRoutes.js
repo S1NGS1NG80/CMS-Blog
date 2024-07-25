@@ -1,185 +1,55 @@
-// const router = require("express").Router();
-// const sequelize = require("../config/connection");
-// const { Post, User, Comment } = require("../models");
-// const withAuth = require("../utils/auth");
-// router.get("/", withAuth, (req, res) => {
-//   Post.findAll({
-//     where: {
-//       user_id: req.session.user_id,
-//     },
-//     attributes: ["id", "title", "content", "created_at"],
-//     include: [
-//       {
-//         model: Comment,
-//         attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
-//         include: {
-//           model: User,
-//           attributes: ["username"],
-//         },
-//       },
-//       {
-//         model: User,
-//         attributes: ["username"],
-//       },
-//     ],
-//   })
-//     .then((dbPostData) => {
-//       const posts = dbPostData.map((post) => post.get({ plain: true }));
-//       res.render("dashboard", { posts, loggedIn: true });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
-// router.get("/edit/:id", withAuth, (req, res) => {
-//   Post.findOne({
-//     where: {
-//       id: req.params.id,
-//     },
-//     attributes: ["id", "title", "content", "created_at"],
-//     include: [
-//       {
-//         model: User,
-//         attributes: ["username"],
-//       },
-//       {
-//         model: Comment,
-//         attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
-//         include: {
-//           model: User,
-//           attributes: ["username"],
-//         },
-//       },
-//     ],
-//   })
-//     .then((dbPostData) => {
-//       if (!dbPostData) {
-//         res.status(404).json({ message: "No post found with this id" });
-//         return;
-//       }
+const router = require('express').Router();
+const { Post } = require('../models/');
+const withAuth = require('../utils/auth');
 
-//       const post = dbPostData.get({ plain: true });
-//       res.render("edit-post", { post, loggedIn: true });
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json(err);
-//     });
-// });
-// router.get("/new", (req, res) => {
-//   res.render("new-post");
-// });
+// GET all auth user's posts
+router.get('/', withAuth, async (req, res) => {
+    try {
+        // let's find user id and incl all their posts
+        const postData = await Post.findAll({
+            where: {
+                userId: req.session.userId,
+            },
+        });
 
-// router.get('/', withAuth, async (req, res) => {
-//   try {
-//     const postData = await Post.findAll({
-//       where: {
-//         userId: req.session.user_id,
-//       },
-//     });
+        // Pass their posts to the view & render into all posts admin using dashboard layout:
+        const posts = postData.map((post) => post.get({
+            plain: true
+        }));
+        res.render('allPostsAdmin', { layout: "dashboard", posts, });
+        
+    } catch (err) { // if withAuth fails...
+        // if user has no active posts, redirect to login page:
+        res.redirect('login');
+    }
+});
 
-//     const posts = postData.map((post) => post.get({ plain: true }));
+// GET route w /new endpt, res.render for new post in layout of dashboard
 
-//     res.render('dashboard', {
-//       dashboard: true,
-//       posts,
-//       loggedIn: req.session.logged_in,
-//     });
-//   } catch (err) {
-//     res.status(500).json(err);
-//   }
-// });
+router.get('/new', withAuth, async (req, res) => {
+    try {
+        res.render('newPost', { layout: 'dashboard' });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
-// module.exports = router;
+// GET route w /edit/:id endpoint .. post.findByPk(req.params.id), then render into edit post with layout of dashboard
 
-// const router = require("express").Router();
-// const { Post, User, Comment } = require("../models");
-// const withAuth = require("../utils/auth");
+router.get('/edit/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findByPk(req.params.id);
+        if (postData) {
+            const post = postData.get({
+                plain: true
+            });
+            res.render('editPost', { layout: 'dashboard', post, });
+        } else {
+            res.status(404).end(); // if bad req / id not found
+        }
+    } catch (err) {
+        res.redirect('login'); // if withAuth fails
+    }
+});
 
-// // Main dashboard route
-// router.get("/", withAuth, async (req, res) => {
-//   try {
-//     const dbPostData = await Post.findAll({
-//       where: {
-//         user_id: req.session.user_id,
-//       },
-//       attributes: ["id", "title", "content", "created_at"],
-//       include: [
-//         {
-//           model: Comment,
-//           attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
-//           include: {
-//             model: User,
-//             attributes: ["username"],
-//           },
-//         },
-//         {
-//           model: User,
-//           attributes: ["username"],
-//         },
-//       ],
-//     });
-
-//     const posts = dbPostData.map((post) => post.get({ plain: true }));
-//     res.render("dashboard", { 
-//       posts, 
-//       loggedIn: true,
-//       dashboard: true
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
-
-// // Edit post route
-// router.get("/edit/:id", withAuth, async (req, res) => {
-//   try {
-//     const dbPostData = await Post.findOne({
-//       where: {
-//         id: req.params.id,
-//       },
-//       attributes: ["id", "title", "content", "created_at"],
-//       include: [
-//         {
-//           model: User,
-//           attributes: ["username"],
-//         },
-//         {
-//           model: Comment,
-//           attributes: ["id", "comment_text", "post_id", "user_id", "created_at"],
-//           include: {
-//             model: User,
-//             attributes: ["username"],
-//           },
-//         },
-//       ],
-//     });
-
-//     if (!dbPostData) {
-//       res.status(404).json({ message: "No post found with this id" });
-//       return;
-//     }
-    
-//     const post = dbPostData.get({ plain: true });
-//     res.render("edit-post", { 
-//       post, 
-//       loggedIn: true,
-//       dashboard: true
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// });
-
-// // New post route
-// router.get("/new", withAuth, (req, res) => {
-//   res.render("new-post", { 
-//     loggedIn: true,
-//     dashboard: true
-//   });
-// });
-
-// module.exports = router;
+module.exports = router;
