@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Lorem Ipsum I",
+    "description":
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "date_created": "October 15, 2021",
+      "user_id": 1
+  },
+  {
+    "title": "Lorem Ipsum II",
+    "description": "Amet aliquam id diam maecenas ultricies mi eget mauris pharetra.",
+    "date_created": "January 2, 2022",
+    "user_id": 2
+  },
+  {
+    "title": "Lorem Ipsum III",
+    "description": "Ut etiam sit amet nisl purus in mollis.",
+    "date_created": "May 27, 2023",
+    "user_id": 3
+  }
+]

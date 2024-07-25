@@ -1,11 +1,11 @@
+// Imports
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
-// create Post model
-class Post extends Model {}
+class BlogPost extends Model {}
 
-// create fields/columns for Post model
-Post.init(
+// BlogPost Table Model
+BlogPost.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -17,9 +17,13 @@ Post.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    content: {
+    description: {
       type: DataTypes.TEXT,
+    },
+    date_created: {
+      type: DataTypes.DATE,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -31,11 +35,12 @@ Post.init(
   },
   {
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: "post",
+    modelName: "blogPost",
   }
 );
 
-module.exports = Post;
+// Export
+module.exports = BlogPost;
