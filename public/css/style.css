@@ -59,7 +59,7 @@ p {
     font-size: 1.3rem;
     text-decoration: none;
     padding: 6px 5px;
-    width: 100%;
+    width: 50%;
     display: block;
     margin: 5px 0;
     border-radius: var(--border-radius);
@@ -159,6 +159,7 @@ p {
 /* CARDS */
 
 .card {
+    /* width: 50%; */
     margin: 0 0 20px 0;
     border: 2px solid var(--dark);
     border-radius: var(--border-radius);
@@ -216,7 +217,7 @@ footer {
 }
 
 .form-input {
-    width: 100%;
+    width: 75%;
     padding: 3%;
     margin: 5px 0;
     font-size: 1.2rem;
